@@ -22,13 +22,14 @@ export class TicketsController {
   @Get()
   async getTickets() {
     await randomDelay();
+    console.log('did we get here tickets')
     return this.ticketsService.tickets();
   }
 
-  @Get()
-  async getTicket(id: number) {
+  @Get(':id')
+  async getTicket(@Param('id') ticketId: number) {
     await randomDelay();
-    const ticket = await this.ticketsService.ticket(id);
+    const ticket = await this.ticketsService.ticket(Number(ticketId));
     if (ticket) return ticket;
     throw new NotFoundException();
   }
