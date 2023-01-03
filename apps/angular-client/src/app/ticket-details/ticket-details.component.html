@@ -1,0 +1,6 @@
+<p>ticket-details works! </p>
+
+<div *ngIf="currentTicket$ | async as currentTicket">
+    <div>{{currentTicket.description}}</div>
+    <div>{{currentTicket.id}}</div>
+</div>

@@ -4,3 +4,30 @@
         Ticket: {{ t.id }}, {{ t.description }}
     </li>
 </ul>
+
+<cdk-accordion class="ticket">
+    <cdk-accordion-item
+      *ngFor="let ticket of tickets$ | async"
+      #accordionItem="cdkAccordionItem"
+      class="ticket-item"
+      role="button"
+      tabindex="0"
+      [attr.id]="'accordion-header-' + ticket.id"
+      [attr.aria-expanded]="accordionItem.expanded"
+      [attr.aria-controls]="'accordion-body-' + ticket.id">
+      <div class="ticket-item-header" (click)="accordionItem.toggle()">
+        {{ item }}
+        <span class="ticket-item-description">
+          Click to {{ accordionItem.expanded ? 'close' : 'open' }}
+        </span>
+      </div>
+      <div
+        class="ticket-item-body"
+        role="region"
+        [style.display]="accordionItem.expanded ? '' : 'none'"
+        [attr.id]="'accordion-body-' + ticket.id"
+        [attr.aria-labelledby]="'accordion-header-' + ticket.id">
+        {{ticket.description}}
+      </div>
+    </cdk-accordion-item>
+  </cdk-accordion>
