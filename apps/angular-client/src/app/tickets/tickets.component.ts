@@ -1,12 +1,12 @@
 import { Ticket } from '@acme/shared-models';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {map } from 'rxjs/operators';
 import { ApiService } from '../api.service';
 
-const taskMap: any = {
+const taskMap: Record<string, boolean> = {
   completed: true,
   open: false,
 }
