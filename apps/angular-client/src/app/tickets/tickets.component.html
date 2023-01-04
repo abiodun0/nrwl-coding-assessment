@@ -4,10 +4,11 @@
         Ticket: {{ t.id }}, {{ t.description }}
     </li>
 </ul>
+<mat-slide-toggle>Toggle me!</mat-slide-toggle>
 
-<cdk-accordion class="ticket">
+<cdk-accordion class="ticket-accordion">
     <cdk-accordion-item
-      *ngFor="let ticket of tickets$ | async"
+      *ngFor="let ticket of tickets$ | async;"
       #accordionItem="cdkAccordionItem"
       class="ticket-item"
       role="button"
@@ -16,7 +17,7 @@
       [attr.aria-expanded]="accordionItem.expanded"
       [attr.aria-controls]="'accordion-body-' + ticket.id">
       <div class="ticket-item-header" (click)="accordionItem.toggle()">
-        {{ item }}
+        {{ ticket.id }}
         <span class="ticket-item-description">
           Click to {{ accordionItem.expanded ? 'close' : 'open' }}
         </span>

@@ -1,6 +1,42 @@
-<p>ticket-details works! </p>
-
-<div *ngIf="currentTicket$ | async as currentTicket">
-    <div>{{currentTicket.description}}</div>
-    <div>{{currentTicket.id}}</div>
+<div *ngIf="currentTicket$ | asyncLoadingErrorPipe | async as currentTicket">
+    <ng-template [ngIf]="currentTicket.value">
+        <mat-card class="ticket-card" *ngIf="currentTicket.value as currentTicket">
+            <div *ngIf="ticketUser$ | asyncLoadingErrorPipe | async as ticketUser">
+                <ng-template [ngIf]="ticketUser.value">
+                    <mat-card-header *ngIf="ticketUser.value as ticketUser">
+                        <mat-card-subtitle>assigned to: {{ticketUser.name}}</mat-card-subtitle>
+                    </mat-card-header>
+                </ng-template>
+                <ng-template [ngIf]="ticketUser.loading">
+                        <mat-card-subtitle>retrieving the ticket user...</mat-card-subtitle>
+                </ng-template>
+                <ng-template [ngIf]="ticketUser.error">
+                        <mat-card-subtitle>Unable to retrieve the User due to the following error {{ticketUser.error.statusText}}</mat-card-subtitle>
+                </ng-template>
+            </div>
+            <mat-card-content>
+                <p>{{currentTicket.description}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <mat-form-field appearance="fill">
+                    <mat-label>Assing this task a user</mat-label>
+                    <mat-select [disabled]="disableSelect.value">
+                      <mat-option value="option1">Option 1</mat-option>
+                      <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
+                      <mat-option value="option3">Option 3</mat-option>
+                    </mat-select>
+                  </mat-form-field>     
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+            </mat-card-actions>
+        </mat-card>
+    </ng-template>
+    <ng-template [ngIf]="currentTicket.loading">Loading...</ng-template>
+    <ng-template [ngIf]="currentTicket.error">
+        <mat-card class="ticket-card">
+            <mat-card-content>
+                <p>We are unable to retrieve the ticket at this time due to the following error: {{currentTicket.error.statusText}}</p>
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
 </div>
