@@ -46,6 +46,7 @@ export class TicketsController {
     @Param('userId') userId: string
   ) {
     await randomDelay();
+    console.log(Number(userId), 'whats this number')
     const success = await this.ticketsService.assign(
       Number(ticketId),
       Number(userId)

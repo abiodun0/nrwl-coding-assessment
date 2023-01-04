@@ -1,34 +1,44 @@
-<h2>Tickets</h2>
-<ul>
-    <li *ngFor="let t of tickets$ | async">
-        Ticket: {{ t.id }}, {{ t.description }}
-    </li>
-</ul>
-<mat-slide-toggle>Toggle me!</mat-slide-toggle>
+<div>
+    <mat-form-field>
+        <mat-label>Filter By User</mat-label>
+        <mat-select (selectionChange)="filterListByUser($event)">
+            <mat-option *ngFor="let user of users$ | async;" value="{{user.id}}"
+                [disabled]="user.id === currentUserFilter"> {{user.name}}
+            </mat-option>
+            <mat-option value="0" [disabled]="0 === currentUserFilter"> Show All
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Filter By Status</mat-label>
+        <mat-select (selectionChange)="filterByCompleted($event)">
+            <mat-option value="completed" [disabled]="'completed' === currentCompletedFilter"> Completed
+            </mat-option>
+            <mat-option value="open" [disabled]="'open' === currentCompletedFilter"> Open
+            </mat-option>
+            <mat-option value="showAll" [disabled]="'showAll' === currentCompletedFilter"> Show All
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-mini-fab color="accent" aria-label="Add new ticket" (click)="openDialog()">
+        <mat-icon>plus_one</mat-icon>
+    </button>
 
-<cdk-accordion class="ticket-accordion">
-    <cdk-accordion-item
-      *ngFor="let ticket of tickets$ | async;"
-      #accordionItem="cdkAccordionItem"
-      class="ticket-item"
-      role="button"
-      tabindex="0"
-      [attr.id]="'accordion-header-' + ticket.id"
-      [attr.aria-expanded]="accordionItem.expanded"
-      [attr.aria-controls]="'accordion-body-' + ticket.id">
-      <div class="ticket-item-header" (click)="accordionItem.toggle()">
-        {{ ticket.id }}
-        <span class="ticket-item-description">
-          Click to {{ accordionItem.expanded ? 'close' : 'open' }}
-        </span>
-      </div>
-      <div
-        class="ticket-item-body"
-        role="region"
-        [style.display]="accordionItem.expanded ? '' : 'none'"
-        [attr.id]="'accordion-body-' + ticket.id"
-        [attr.aria-labelledby]="'accordion-header-' + ticket.id">
-        {{ticket.description}}
-      </div>
-    </cdk-accordion-item>
-  </cdk-accordion>
+
+</div>
+<h2>Ticket Lists</h2>
+<div *ngIf="tickets$ | asyncLoadingErrorPipe | async as tickets">
+    <ng-template [ngIf]="tickets.value">
+        <mat-grid-list cols="3" rowHeight="3:1">
+            <mat-grid-tile *ngFor="let ticket of tickets.value;">
+                {{ticket.description}}
+                <mat-grid-tile-footer>
+                    <a routerLink="/{{ticket.id}}" mat-raised-button extended color="secondary">View more info</a>
+                </mat-grid-tile-footer>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </ng-template>
+    <ng-template [ngIf]="tickets.loading"><mat-progress-bar mode="indeterminate"></mat-progress-bar></ng-template>
+    <ng-template [ngIf]="tickets.error"> Error retriving the ticket lists: {{tickets.error.statusText}}</ng-template>
+
+</div>

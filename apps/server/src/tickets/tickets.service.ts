@@ -54,7 +54,12 @@ export class TicketsService {
     if (ticket && user) {
       ticket.assigneeId = +userId;
       return true;
-    } else {
+    }
+    if (ticket && userId === 0) {
+      ticket.assigneeId = null;
+      return true;
+    } 
+    else {
       return false;
     }
   }
