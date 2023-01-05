@@ -9,12 +9,12 @@ describe('AsyncLoadingErrorPipePipe', () => {
   it('should verify when there is no error', (done: jest.DoneCallback) => {
     const pipeFn = new AsyncLoadingErrorPipe();
     pipeFn.transform(of(1)).subscribe({
-      next: (x) => {
-        if (!x.loading) {
-          expect(x.value).toEqual(1);
+      next: (response) => {
+        if (!response.loading) {
+          expect(response.value).toEqual(1);
           done();
         } else {
-          expect(x.loading).toBeTruthy();
+          expect(response.loading).toBeTruthy();
         }
       },
     });
@@ -26,12 +26,12 @@ describe('AsyncLoadingErrorPipePipe', () => {
       return error;
     });
     pipeFn.transform(error$).subscribe({
-      next: (x) => {
-        if (!x.loading) {
-          expect(x.error).toBeInstanceOf(Error);
+      next: (response) => {
+        if (!response.loading) {
+          expect(response.error).toBeInstanceOf(Error);
           done();
         } else {
-          expect(x.loading).toBeTruthy();
+          expect(response.loading).toBeTruthy();
         }
       },
     });
