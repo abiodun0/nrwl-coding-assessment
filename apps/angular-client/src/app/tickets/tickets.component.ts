@@ -79,7 +79,7 @@ export class AddNewTicketDialogComponent {
     this.api.newTicket({description: this.description}).subscribe({
       complete: () => {
         this._snackBar.open(
-          'Successfully added new ticket:'
+          'Successfully added new ticket'
         );
         this.data.refresh()
       },
