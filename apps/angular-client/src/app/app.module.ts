@@ -20,13 +20,13 @@ import { AddNewTicketDialogComponent, TicketsComponent } from './tickets/tickets
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { AsyncLoadingErrorPipePipe } from './async-loading-error-pipe.pipe';
+import { AsyncLoadingErrorPipe } from './async-loading-error-pipe.pipe';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [AppComponent, TicketsComponent, TicketDetailsComponent, AsyncLoadingErrorPipePipe, AddNewTicketDialogComponent],
+  declarations: [AppComponent, TicketsComponent, TicketDetailsComponent, AsyncLoadingErrorPipe, AddNewTicketDialogComponent],
   imports: [
     HttpClientModule,
     BrowserModule,

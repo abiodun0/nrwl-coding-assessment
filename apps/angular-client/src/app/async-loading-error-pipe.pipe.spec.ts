@@ -1,13 +1,13 @@
 import { of, throwError } from 'rxjs';
-import { AsyncLoadingErrorPipePipe } from './async-loading-error-pipe.pipe';
+import { AsyncLoadingErrorPipe } from './async-loading-error-pipe.pipe';
 
 describe('AsyncLoadingErrorPipePipe', () => {
   it('create an instance', () => {
-    const pipe = new AsyncLoadingErrorPipePipe();
+    const pipe = new AsyncLoadingErrorPipe();
     expect(pipe).toBeTruthy();
   });
   it('should verify when there is no error', (done: jest.DoneCallback) => {
-    const pipeFn = new AsyncLoadingErrorPipePipe();
+    const pipeFn = new AsyncLoadingErrorPipe();
     pipeFn.transform(of(1)).subscribe({
       next: (x) => {
         if (!x.loading) {
@@ -20,7 +20,7 @@ describe('AsyncLoadingErrorPipePipe', () => {
     });
   });
   it('should verify when there is an error', (done: jest.DoneCallback) => {
-    const pipeFn = new AsyncLoadingErrorPipePipe();
+    const pipeFn = new AsyncLoadingErrorPipe();
     const error$ = throwError(() => {
       const error = new Error("This is a new error");
       return error;

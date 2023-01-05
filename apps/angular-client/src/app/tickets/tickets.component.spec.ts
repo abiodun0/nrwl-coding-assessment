@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { AsyncLoadingErrorPipePipe } from '../async-loading-error-pipe.pipe';
+import { AsyncLoadingErrorPipe } from '../async-loading-error-pipe.pipe';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -20,7 +20,7 @@ describe('TicketsComponent', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatFormFieldModule, MatSelectModule, MatIconModule, MatProgressBarModule, NoopAnimationsModule],
       providers: [ApiService, {provide: MatDialog, useValue: MatDialogMock}],
-      declarations: [TicketsComponent, AsyncLoadingErrorPipePipe],
+      declarations: [TicketsComponent, AsyncLoadingErrorPipe],
     });
   });
 

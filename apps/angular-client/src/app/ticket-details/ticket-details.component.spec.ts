@@ -7,7 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from "@angular/router/testing";
 import { of } from 'rxjs';
 import { ApiService } from '../api.service';
-import { AsyncLoadingErrorPipePipe } from '../async-loading-error-pipe.pipe';
+import { AsyncLoadingErrorPipe } from '../async-loading-error-pipe.pipe';
 
 import { TicketDetailsComponent } from './ticket-details.component';
 
@@ -27,7 +27,7 @@ describe('TicketDetailsComponent', () => {
      };
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, MatCardModule,MatSelectModule, MatSlideToggleModule, NoopAnimationsModule],
-      declarations: [TicketDetailsComponent, AsyncLoadingErrorPipePipe],
+      declarations: [TicketDetailsComponent, AsyncLoadingErrorPipe],
       providers: [{provide: ApiService, useValue: ApiServiceMock }, {provide: MatSnackBar, useValue: MatSnackBarMock }],
     }).compileComponents();
   });

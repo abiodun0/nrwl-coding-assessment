@@ -11,7 +11,7 @@ type ErrorInterface<T> = {
 @Pipe({
   name: 'asyncLoadingErrorPipe'
 })
-export class AsyncLoadingErrorPipePipe implements PipeTransform {
+export class AsyncLoadingErrorPipe implements PipeTransform {
 
   transform<T>(val: Observable<T>): Observable<ErrorInterface<T>> {
     return val.pipe(
