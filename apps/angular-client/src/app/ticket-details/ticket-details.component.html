@@ -1,0 +1,60 @@
+<div *ngIf="currentTicket$ | asyncLoadingErrorPipe | async as currentTicket">
+    <ng-template [ngIf]="currentTicket.value">
+        <mat-card class="ticket-card" *ngIf="currentTicket.value as currentTicket">
+            <div *ngIf="ticketUser$ | asyncLoadingErrorPipe | async as ticketUser">
+                <ng-template [ngIf]="ticketUser.value">
+                    <mat-card-header *ngIf="ticketUser.value as ticketUser">
+                        <mat-card-subtitle>assigned to: <b>{{ticketUser.name}} </b></mat-card-subtitle>
+                        <mat-card-subtitle>Status: <b>{{currentTicket.completed ? 'Complete' : 'Open'}} </b></mat-card-subtitle>
+                    </mat-card-header>
+                </ng-template>
+                <ng-template [ngIf]="ticketUser.loading">
+                    <mat-card-subtitle>retrieving the ticket user...</mat-card-subtitle>
+                </ng-template>
+                <ng-template [ngIf]="ticketUser.error">
+                    <mat-card-subtitle>Unable to retrieve the User due to the following error
+                        {{ticketUser.error.statusText}}</mat-card-subtitle>
+                </ng-template>
+            </div>
+            <mat-card-content>
+                <p>{{currentTicket.description}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <div>
+                <mat-form-field>
+
+                    <mat-label>Assgin/Reasssgin this task to a user</mat-label>
+                    <mat-select [disabled]="disableSelect.value" (selectionChange)="changeAssgignedUser($event, currentTicket.id)">
+                        <mat-option *ngFor="let user of users$ | async;" value="{{user.id}},{{user.name}}"
+                            [disabled]="user.id === currentTicket.assigneeId"> {{user.name}}
+                        </mat-option>
+                        <mat-option value="0,Uassigned" [disabled]="0 === currentTicket.assigneeId"> Unassign
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                </div>
+                <div>
+                    <mat-slide-toggle (change)="markAsComplete($event, currentTicket.id)" [checked]="currentTicket.completed">
+                        Mark as {{ currentTicket.completed ? 'Open': 'Complete'}}</mat-slide-toggle>
+                </div>
+            </mat-card-actions>
+            <mat-card-footer>
+                <a routerLink="/" mat-stroked-button extended>Back to home page</a>
+              </mat-card-footer>
+        </mat-card>
+    </ng-template>
+    <ng-template [ngIf]="currentTicket.loading"><mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </ng-template>
+    <ng-template [ngIf]="currentTicket.error">
+        <mat-card class="ticket-card">
+            <mat-card-content>
+                <p>We are unable to retrieve the ticket at this time due to the following error:
+                    {{currentTicket.error.statusText}}</p>
+            </mat-card-content>
+            <mat-card-footer>
+                <a routerLink="/" mat-stroked-button extended>Back to home page</a>
+              </mat-card-footer>
+        </mat-card>
+    </ng-template>
+</div>

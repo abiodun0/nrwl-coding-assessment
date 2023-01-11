@@ -1,0 +1,6 @@
+  mat-grid-tile {
+    background: gray;
+  }
+  mat-form-field + mat-form-field {
+    margin-left: 20px;
+  }

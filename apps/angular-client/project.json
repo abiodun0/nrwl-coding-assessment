@@ -1,11 +1,14 @@
 {
+  "name": "angular-client",
   "projectType": "application",
   "sourceRoot": "apps/angular-client/src",
   "prefix": "acme",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/angular-client",
         "index": "apps/angular-client/src/index.html",
@@ -16,7 +19,10 @@
           "apps/angular-client/src/favicon.ico",
           "apps/angular-client/src/assets"
         ],
-        "styles": ["apps/angular-client/src/styles.css"],
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/angular-client/src/styles.css"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -84,7 +90,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/angular-client"],
+      "outputs": [
+        "coverage/apps/angular-client"
+      ],
       "options": {
         "jestConfig": "apps/angular-client/jest.config.ts",
         "passWithNoTests": true

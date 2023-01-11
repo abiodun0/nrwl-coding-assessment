@@ -22,7 +22,6 @@ export class TicketsController {
   @Get()
   async getTickets() {
     await randomDelay();
-    console.log('did we get here tickets')
     return this.ticketsService.tickets();
   }
 

@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Add new Task</h1>
+<div mat-dialog-content>
+  <p>Ticket description</p>
+  <mat-form-field appearance="fill">
+    <mat-label>description</mat-label>
+    <textarea matInput [(ngModel)]="description">{{description}}</textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onSubmit()">Submit</button>
+</div>
